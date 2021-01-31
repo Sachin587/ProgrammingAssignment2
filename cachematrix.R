@@ -1,31 +1,35 @@
-setwd('C:/Users/Sachin/Documents/Coursera-R')
-##
-## I simply set the input x as a matrix
-## and then set the solved value "s" as a null
-## then I changed every reference to "mean" to "solve"
-makeCacheMatrix <- function(x = matrix(sample(1:100,9),3,3)) {
-  s <- NULL
+## This functions create a specail "matrix" that can chache its inverse
+## base on sample function makeVector and chacheVector
+
+## Create special "matrix" object
+
+makeCacheMatrix <- function(x = matrix()) {
+  m <- NULL
   set <- function(y) {
     x <<- y
-    s <<- NULL
+    m <<- NULL
   }
   get <- function() x
-  setsolve <- function(solve) s <<- solve
-  getsolve <- function() s
-  list(set = set, get = get,
+  setsolve <- function(solve) m <<- solve
+  getsolve <- function() m
+  list(set      = set, 
+       get      = get,
        setsolve = setsolve,
        getsolve = getsolve)
 }
-##
-## Same here, changed "mean" to "solve" and "m" to "s"
+
+
+## Calculate matrix inverse, if stored skip calculation
+
 cacheSolve <- function(x, ...) {
-  s <- x$getsolve()
-  if(!is.null(s)) {
-    message("getting inversed matrix")
-    return(s)
+  ## Return a matrix that is the inverse of 'x'
+  m <- x$getsolve()
+  if(!is.null(m)) {
+    message("getting cached data")
+    return(m)
   }
   data <- x$get()
-  s <- solve(data, ...)
-  x$setsolve(s)
-  s
+  m <- solve(data)
+  x$setsolve(m)
+  m
 }
