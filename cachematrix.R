@@ -1,3 +1,4 @@
+setwd('C:/Users/Sachin/Documents/Coursera-R')
 ##
 ## I simply set the input x as a matrix
 ## and then set the solved value "s" as a null
